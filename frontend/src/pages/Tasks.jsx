@@ -11,7 +11,8 @@ export default function Tasks() {
     const fetchTasks = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
-        const { data } = await axios.get('http://localhost:5000/api/tasks', config);
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const { data } = await axios.get(`${API_URL}/api/tasks`, config);
         setTasks(data);
       } catch (error) {
         console.error(error);

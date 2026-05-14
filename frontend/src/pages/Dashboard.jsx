@@ -11,8 +11,9 @@ export default function Dashboard() {
     const fetchStats = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
-        const { data: projects } = await axios.get('http://localhost:5000/api/projects', config);
-        const { data: tasks } = await axios.get('http://localhost:5000/api/tasks', config);
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const { data: projects } = await axios.get(`${API_URL}/api/projects`, config);
+        const { data: tasks } = await axios.get(`${API_URL}/api/tasks`, config);
         
         const completed = tasks.filter(t => t.status === 'Completed').length;
         const pending = tasks.filter(t => t.status !== 'Completed').length;
